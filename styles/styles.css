@@ -1,0 +1,196 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Baloo 2", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #272727;
+  color: white;
+}
+body section.anmimation-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  animation: fadeOut 0.3s 2s forwards;
+}
+body section.anmimation-wrapper div.animation {
+  margin-top: 10vh;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body section.anmimation-wrapper div.animation div.img {
+  width: 80%;
+  height: 0;
+  animation: openImg 1s forwards, scaleUp 1s 1s forwards;
+}
+body section.anmimation-wrapper div.animation div.img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.anmimation-wrapper div.slider {
+  position: absolute;
+  left: -1100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, grey, black);
+  z-index: -1;
+  animation: slide 1s 1s forwards;
+}
+body .btn {
+  border: none;
+  cursor: pointer;
+}
+body i {
+  pointer-events: none;
+}
+body header {
+  box-shadow: 0px 5px 10px -3px black;
+}
+body header nav ul {
+  display: flex;
+}
+body header nav ul li {
+  padding: 1.5rem 1rem;
+}
+body header nav ul li a {
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: white;
+  transition: all 0.2s;
+}
+body header nav ul li a:hover {
+  color: yellow;
+}
+body main {
+  text-align: center;
+}
+body main section.main-part {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+}
+body main section.main-part h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  padding: 2rem 0;
+}
+body main section.main-part div.buttons .btn {
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+}
+body main section.main-part div.all-input form {
+  font-size: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+body main section.main-part div.all-input form input,
+body main section.main-part div.all-input form select {
+  font-size: 1.1rem;
+  border: none;
+  margin: 0.5rem;
+  border-radius: 3px;
+  padding: 0.5rem 0.5rem;
+}
+body main section.main-part div.all-input form input.class-credit {
+  width: 100px;
+}
+body main section.main-part div.all-input form button.trash {
+  background-color: #272727;
+  margin: 0.5rem;
+}
+body main section.main-part div.all-input form button.trash i {
+  color: white;
+  font-size: 1.5rem;
+}
+body main section.main-part button.plus {
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin: 2.5rem 0;
+}
+body main section.main-part button.plus i {
+  font-size: 1.3rem;
+}
+body main section.main-part div.result {
+  width: 200px;
+  height: 200px;
+  border: 3px solid white;
+  border-radius: 50%;
+  padding-top: 2rem;
+  animation: changeColor 8s infinite;
+}
+body main section.main-part div.result p {
+  font-size: 1.2rem;
+}
+body main section.main-part div.result h2 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  padding: 1rem 0;
+}
+
+.remove {
+  transform: scale(0);
+  transition: all 0.4s ease-out;
+}
+
+@keyframes changeColor {
+  0% {
+    border-color: white;
+  }
+  15% {
+    border-color: red;
+  }
+  50% {
+    border-color: green;
+  }
+  85% {
+    border-color: blue;
+  }
+  100% {
+    border-color: white;
+  }
+}
+@keyframes openImg {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100%;
+  }
+}
+@keyframes scaleUp {
+  0% {
+    width: 80;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes slide {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
+}/*# sourceMappingURL=styles.css.map */
