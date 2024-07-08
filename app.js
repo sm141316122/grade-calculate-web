@@ -118,81 +118,110 @@ credits.forEach((credit) => {
   });
 });
 
-// 新增form
 let addButton = document.querySelector(".plus");
 addButton.addEventListener("click", () => {
-  let newForm = document.querySelector("form").cloneNode(true);
-  // 設定新增的form的CSS
-  newForm.querySelector(".class-type").value = "";
-  newForm.querySelector(".class-number").value = "";
-  newForm.querySelector(".class-credit").value = "";
-  newForm.querySelector("select").style.backgroundColor = "white";
-
-  // 加入新增的Form
+  let newForm = document.createElement("form");
+  let str = `<form action="#">
+            <div>
+              <input
+                class="class-type"
+                type="text"
+                name="class-type"
+                placeholder="class category"
+                list="opt"
+              />
+              <input
+                class="class-number"
+                type="text"
+                name="class-category"
+                placeholder="class number"
+              />
+              <input
+                class="class-credit"
+                type="number"
+                name="class-credit"
+                placeholder="credits"
+                min="1"
+                max="6"
+              />
+              <select name="select" class="select">
+                <option value=""></option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="F">F</option>
+              </select>
+              <button class="btn trash">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </form>`;
+  newForm.innerHTML = str;
   let allInput = document.querySelector(".all-input");
   allInput.insertAdjacentElement("beforeend", newForm);
+  allInputChildren = allInput.childNodes;
 
-  // 設定新增的Form的動畫
-  newForm.animate([{ transform: "scale(0)" }, { transform: "scale(1)" }], {
-    duration: 400,
-    easing: "ease-out",
-  });
+  for (let i = allInputChildren.length - 1; i >= 0; i--) {
+    if (allInputChildren[i].nodeName != "#text") {
+      // 設定新增的Form的動畫
+      allInputChildren[i].animate(
+        [{ transform: "scale(0)" }, { transform: "scale(1)" }],
+        {
+          duration: 400,
+          easing: "ease-out",
+        }
+      );
 
-  // 設定新增的Form的監聽事件
-  allInput = document.querySelectorAll("form");
-  newForm = allInput[allInput.length - 1];
-  newForm.querySelector(".class-credit").addEventListener("change", () => {
-    setGPA();
-  });
-  newForm.querySelector("select").addEventListener("change", (e) => {
-    setGPA();
-    changeColor(e.target);
-  });
+      let newSelect = allInputChildren[i].querySelector(".select");
+      newSelect.addEventListener("change", (e) => {
+        setGPA(); // 計算成績
+        changeColor(e.target);
+      });
 
-  // 刪除新增的Form
-  newForm.querySelector(".trash").addEventListener("click", (e) => {
-    e.preventDefault();
-    allInput = document.querySelectorAll("form div");
-    if (allInput.length != 1) {
-      newForm.classList.add("remove");
-    } else {
-      allInput[0].children[0].value = "";
-      allInput[0].children[1].value = "";
-      allInput[0].children[2].value = "";
-      allInput[0].children[3].value = "";
-      changeColor(allInput[0].children[3]);
+      let newCredit = allInputChildren[i].querySelector(".class-credit");
+      newCredit.addEventListener("change", () => {
+        setGPA();
+      });
+
+      let newButton = allInputChildren[i].querySelector(".trash");
+      newButton.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        e.target.parentElement.parentElement.classList.add("remove");
+        e.target.parentElement.parentElement.addEventListener(
+          "transitionend",
+          (e) => {
+            e.target.remove();
+            setGPA();
+          }
+        );
+      });
+
+      break;
     }
-  });
-
-  newForm.addEventListener("trasitionend", (e) => {
-    e.target.remove();
-    setGPA();
-  });
+  }
 });
 
 // 刪除form
 let allTrash = document.querySelectorAll(".trash");
 allTrash.forEach((trash) => {
   trash.addEventListener("click", (e) => {
-    allInput = document.querySelectorAll("form div");
-    if (allInput.length != 1) {
-      e.target.parentElement.parentElement.classList.add("remove");
-    } else {
-      allInput[0].children[0].value = "";
-      allInput[0].children[1].value = "";
-      allInput[0].children[2].value = "";
-      allInput[0].children[3].value = "";
-      changeColor(allInput[0].children[3]);
-    }
-  });
-});
-
-// 監聽動畫完成後刪除
-allTrash.forEach((trash) => {
-  let form = trash.parentElement.parentElement;
-  form.addEventListener("transitionend", (e) => {
-    e.target.remove();
-    setGPA();
+    e.target.parentElement.parentElement.classList.add("remove");
+    e.target.parentElement.parentElement.addEventListener(
+      "transitionend",
+      (e) => {
+        e.target.remove();
+        setGPA();
+      }
+    );
   });
 });
 
